@@ -15,9 +15,10 @@ class ItemList extends Model
         'nama',
         'harga',
         'detail_info',
+        'ukuran',
         'deskripsi',
         'lokasi',
-        'user_id',
+        'id_owner',
     ];
 
     public function bookmarks()

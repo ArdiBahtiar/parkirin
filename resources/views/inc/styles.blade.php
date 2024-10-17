@@ -995,6 +995,16 @@
       </style>
       @break
 
+    @case('createPost')
+      <link href="{{asset('assets/css/scrollspyNav.css')}}" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="{{asset('plugins/jquery-step/jquery.steps.css')}}">
+      <link href="{{asset('plugins/file-upload/file-upload-with-preview.min.css')}}" rel="stylesheet" type="text/css" />
+      <style>
+          #formValidate .wizard > .content {min-height: 25em;}
+          #example-vertical.wizard > .content {min-height: 24.5em;}
+      </style>
+      @break
+
     @default
         <script>console.log('No custom Styles available.')</script>
 @endswitch

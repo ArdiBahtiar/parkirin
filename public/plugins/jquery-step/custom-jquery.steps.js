@@ -5,12 +5,23 @@ $("#example-basic").steps({
     autoFocus: true,
     cssClass: 'pill wizard'
 });
+// $("#circle-basic").steps({
+//     headerTag: "h3",
+//     bodyTag: "section",
+//     transitionEffect: "slideLeft",
+//     autoFocus: true,
+//     cssClass: 'circle wizard'
+// });
 $("#circle-basic").steps({
     headerTag: "h3",
     bodyTag: "section",
     transitionEffect: "slideLeft",
     autoFocus: true,
-    cssClass: 'circle wizard'
+    cssClass: 'circle wizard',
+    onFinished: function (event, currentIndex) {
+        // window.location.href = 'https://www.google.com';
+        $("#createPost").submit();
+    }
 });
 $("#example-vertical").steps({
     headerTag: "h3",

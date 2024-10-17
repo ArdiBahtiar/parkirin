@@ -1072,6 +1072,17 @@
       <script src="{{asset('plugins/jquery-step/custom-jquery.steps.js')}}"></script>
       @break
 
+    @case('createPost')
+      <script src="{{asset('assets/js/scrollspyNav.js')}}"></script>
+      <script src="{{asset('plugins/jquery-step/jquery.steps.min.js')}}"></script>
+      <script src="{{asset('plugins/jquery-step/custom-jquery.steps.js')}}"></script>
+      <script src="{{asset('plugins/file-upload/file-upload-with-preview.min.js')}}"></script>
+      <script>
+          //Second upload
+        var secondUpload = new FileUploadWithPreview('mySecondImage')
+      </script>
+      @break
+      
     @default
     <script>console.log('No custom script available.')</script>
 @endswitch

@@ -40,15 +40,28 @@ class ItemListController extends Controller
 
     public function create()
     {
+        $data = [
+            'category_name' => 'dashboard',
+            'page_name' => 'createPost',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
         // $users = User::find($id); BISA DIAMBIL LANGSUNG PAKE Auth::user()
-        return view('pages.createItem');
+        return view('posts.createPost')->with($data);
     }
 
 
     public function store(Request $request)
     {
+        $data = [
+            'category_name' => 'dashboard',
+            'page_name' => 'createPost',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
         ItemList::create($request->all());
-        return redirect('/items');
+        return view('posts.createPost')->with($data);
     }
 
 
