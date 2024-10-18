@@ -54,5 +54,11 @@
     @include('inc.scripts')
 
     @livewireScripts
+
+    <div id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div>Loading... Please wait</div>
+    </div>
+    
 </body>
 </html>

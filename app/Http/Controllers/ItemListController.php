@@ -61,7 +61,7 @@ class ItemListController extends Controller
         ];
 
         ItemList::create($request->all());
-        return view('posts.createPost')->with($data);
+        return redirect('/posts/items/create')->with($data);
     }
 
 
@@ -80,15 +80,44 @@ class ItemListController extends Controller
     }
 
 
-    public function edit(ItemList $itemList)
+    public function edit(ItemList $itemList, $id)
     {
-        //
+        $data = [
+            'category_name' => 'dashboard',
+            'page_name' => 'createPost',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        $item = ItemList::find($id);
+        return view('posts.editPost', compact('item'))->with($data);
     }
 
 
-    public function update(Request $request, ItemList $itemList)
+    public function update(Request $request, ItemList $itemList, $id)
     {
-        //
+        $data = [
+            'category_name' => 'dashboard',
+            'page_name' => 'createPost',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        $itemList = ItemList::findOrFail($id);
+
+        $validated = $request->validate([
+            'nama' => 'required|string',
+            'harga' => 'required|numeric',
+            'detail_info' => 'required|string',
+            'ukuran' => 'required|string',
+            'deskripsi' => 'required|string',
+            'lokasi' => 'required|url',
+            'id_owner' => 'required|integer',
+        ]);
+        
+        // $itemList->update($request->all());
+        $itemList->update($validated);
+        return redirect('/posts/items/create')->with($data);
     }
 
 

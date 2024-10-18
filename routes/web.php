@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemListController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MessageController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,10 +41,14 @@ Route::group(['middleware' => 'auth'] , function() {
 
     Route::prefix('posts')->group(function () {
         Route::get('/items', [ItemListController::class, 'index']);
+        Route::get('/items/{id}', [ItemListController::class, 'focus'])->name('posts.focus');
 
         Route::get('/items/create', [ItemListController::class, 'create']);
-        Route::get('/items/{id}', [ItemListController::class, 'focus'])->name('posts.focus');
         Route::post('/items', [ItemListController::class, 'store']);
+        Route::post('/upload-images', [ImageController::class, 'store'])->name('images.store');     // INI NYIMPEN GAMBAR YGY
+        
+        Route::get('/items/{id}/edit', [ItemListController::class, 'edit']);
+        Route::put('/items/{id}/update', [ItemListController::class, 'update']);
     });
 
     Route::prefix('chats')->group(function () {
