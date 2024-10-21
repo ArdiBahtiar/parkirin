@@ -7,10 +7,10 @@ if (!function_exists('setTitle')) :
 
         // echo $page_name;
 
-        $admin_name = '| CORK - Multipurpose Bootstrap Dashboard Template';
+        $admin_name = '| MBAHMU.COM - Jual sanak famili anda disini';
 
         if ($page_name === 'analytics') :
-            echo 'CORK Admin - Multipurpose Bootstrap Dashboard Template';
+            echo 'MBAHMU.COM - Jual sanak famili anda disini';
         elseif ($page_name === 'sales') :
             echo 'Sales Admin ' . $admin_name;
 

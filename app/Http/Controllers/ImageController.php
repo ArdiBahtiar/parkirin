@@ -9,6 +9,8 @@ class ImageController extends Controller
 {
     public function store(Request $request)
     {
+        $newPostId = session()->get('newPostId');
+
         $request->validate([
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
@@ -18,9 +20,11 @@ class ImageController extends Controller
                 $fileName = time().'_'.$image->getClientOriginalName();
                 $filePath = $image->storeAs('uploads', $fileName, 'public');
 
-                Image::create(['file_path' => '/storage/app/public/uploads/' . $filePath,
-                'id_owner' => $request->id_owner
-            ]);
+                Image::create([
+                    'file_path' => '/storage/app/public/uploads/' . $filePath,
+                    'id_owner' => $request->id_owner,
+                    'id_post' => $newPostId,
+                ]);
             }
         }
 
@@ -31,5 +35,18 @@ class ImageController extends Controller
             'scrollspy_offset' => '',
         ];
         return redirect('/posts/items/create')->with($data);
+    }
+
+
+    public function index()
+    {
+        $data = [
+            'category_name' => 'dashboard',
+            'page_name' => 'createPost',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        return view('posts.upload')->with($data);
     }
 }

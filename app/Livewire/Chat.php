@@ -51,8 +51,6 @@ class Chat extends Component
 
     public function render()
     {
-        // $this->messages = Message::all();                    lazy loading
-        // $this->messages = Message::with('user')->get();      eager loading
         $this->messages = Message::with('user')->whereHas('conversation', function($query) {
             $query->where('id', $this->conversationId);
         })->get();

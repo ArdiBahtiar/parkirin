@@ -41,9 +41,9 @@ Route::group(['middleware' => 'auth'] , function() {
 
     Route::prefix('posts')->group(function () {
         Route::get('/items', [ItemListController::class, 'index']);
-        Route::get('/items/{id}', [ItemListController::class, 'focus'])->name('posts.focus');
-
         Route::get('/items/create', [ItemListController::class, 'create']);
+        
+        Route::get('/items/{id}', [ItemListController::class, 'focus'])->name('posts.focus');
         Route::post('/items', [ItemListController::class, 'store']);
         Route::post('/upload-images', [ImageController::class, 'store'])->name('images.store');     // INI NYIMPEN GAMBAR YGY
         
@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'] , function() {
     Route::prefix('bookmarks')->group(function() {
         Route::post('/{list}/save', [BookmarkController::class, 'save'])->name('bookmarks.save');
         Route::delete('/{list}/bookmark', [BookmarkController::class, 'destroy'])->name('bookmarks.destroy');
-        Route::get('/saved', [BookmarkController::class, 'bookmarked']);
+        Route::get('/items', [BookmarkController::class, 'bookmarked']);
     });
 
     Route::get('/analytics', function() {

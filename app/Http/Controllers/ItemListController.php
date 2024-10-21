@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ItemList;
 use App\Models\User;
 use App\Models\Bookmark;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
@@ -15,7 +16,7 @@ class ItemListController extends Controller
     public function index(): View
     {
         $data = [
-            'category_name' => 'dashboard',
+            'category_name' => 'posts',
             'page_name' => 'analytics',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
@@ -41,7 +42,7 @@ class ItemListController extends Controller
     public function create()
     {
         $data = [
-            'category_name' => 'dashboard',
+            'category_name' => 'posts',
             'page_name' => 'createPost',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
@@ -53,14 +54,32 @@ class ItemListController extends Controller
 
     public function store(Request $request)
     {
+        $newPost = ItemList::create($request->all());
+        
+        $request->validate([
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $fileName = time().'_'.$image->getClientOriginalName();
+                $filePath = $image->storeAs('uploads', $fileName, 'public');
+
+                Image::create([
+                    'file_path' => '/storage/uploads/' . $fileName,
+                    'id_owner' => $request->id_owner,
+                    'id_post' => $newPost->id
+                ]);
+            }
+        }
+        
         $data = [
-            'category_name' => 'dashboard',
+            'category_name' => 'posts',
             'page_name' => 'createPost',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
         ];
 
-        ItemList::create($request->all());
         return redirect('/posts/items/create')->with($data);
     }
 
@@ -68,7 +87,7 @@ class ItemListController extends Controller
     public function focus($id)
     {
         $data = [
-            'category_name' => 'dashboard',
+            'category_name' => 'posts',
             'page_name' => 'analytics',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
@@ -83,8 +102,8 @@ class ItemListController extends Controller
     public function edit(ItemList $itemList, $id)
     {
         $data = [
-            'category_name' => 'dashboard',
-            'page_name' => 'createPost',
+            'category_name' => 'posts',
+            'page_name' => 'createPost',    // ini udah tak bikin custom style dan script nya
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
         ];
@@ -97,8 +116,8 @@ class ItemListController extends Controller
     public function update(Request $request, ItemList $itemList, $id)
     {
         $data = [
-            'category_name' => 'dashboard',
-            'page_name' => 'createPost',
+            'category_name' => 'posts',
+            'page_name' => 'createPost',    // ini udah tak bikin custom style dan script nya
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
         ];

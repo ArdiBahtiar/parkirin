@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->string('file_path');
-            $table->foreignId('id_owner')->references('id')->on('users')->onUpdate('cascade');
+            $table->foreignId('id_owner')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('id_post')->references('id')->on('item_lists')->onDelete('cascade');
             $table->timestamps();
         });
     }

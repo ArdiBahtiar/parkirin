@@ -40,8 +40,17 @@ class BookmarkController extends Controller
         // $items = ItemList::whereIn('id', $post_ids)->get();
         // return view('pages.bookmarked', ['bookmarks' => $bookmarks, 'items' => $items]);
 
+        
+        $data = [
+            'category_name' => 'posts',
+            'page_name' => 'analytics',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+        
+        // $posts = ItemList::paginate(6);
         $bookmarks = Auth::user()->bookmarkedPosts()->get();
-        return view('pages.bookmarked', compact('bookmarks'));
+        return view('posts.bookmarked', compact('bookmarks'))->with($data);
     }
     
 }
