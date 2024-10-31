@@ -13,12 +13,19 @@
             @if ($category_name != 'starter_kits')
             <ul class="navbar-item flex-row mr-auto">
                 <li class="nav-item align-self-center search-animated">
-                    <form class="form-inline search-full form-inline search" role="search">
+                    <form class="form-inline search-full form-inline search" role="search" action="{{ url('/posts/search') }}">
                         <div class="search-bar">
-                            <input type="text" class="form-control search-form-control  ml-lg-auto" placeholder="Search...">
+                            <input type="text" class="form-control search-form-control  ml-lg-auto" placeholder="Search..." name="cari">
                         </div>
                     </form>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search toggle-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </li>
+                <li>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-primary mb-2 mr-2" data-toggle="modal" data-target="#filterModal">
+                          Filter
+                        </button>
+                    </div>
                 </li>
             </ul>
             @endif
@@ -198,5 +205,35 @@
         </header>
     </div>
     <!--  END NAVBAR  -->
+
+    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="filterModalLabel">Filter</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
+            </div>
+        <form action="">
+            <div class="modal-body">
+                <div class="form-group mb-4">
+                    <input type="text" class="form-control" id="lFullName" placeholder="Full Name *">
+                </div>
+                <div class="form-group mb-4">
+                    <input type="email" class="form-control" id="lEmail" placeholder="Email address *">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="lPassword" placeholder="Password *">
+                </div>
+                <small id="emailHelp" class="form-text text-muted">*Required Fields</small>
+            </div>
+            <div class="modal-footer">
+                {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button> --}}
+                {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button> --}}
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+          </div>
+        </div>
+      </div>
 
 @endif

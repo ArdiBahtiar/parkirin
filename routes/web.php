@@ -47,6 +47,9 @@ Route::group(['middleware' => 'auth'] , function() {
         Route::post('/items', [ItemListController::class, 'store']);
         Route::post('/upload-images', [ImageController::class, 'store'])->name('images.store');     // INI NYIMPEN GAMBAR YGY
         
+        Route::get('/search', [ItemListController::class, 'search']);
+        Route::get('/filter', [ItemListController::class, 'filter']);
+
         Route::get('/items/{id}/edit', [ItemListController::class, 'edit']);
         Route::put('/items/{id}/update', [ItemListController::class, 'update']);
     });

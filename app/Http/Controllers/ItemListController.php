@@ -26,6 +26,21 @@ class ItemListController extends Controller
         return view('posts.index', compact('posts'))->with($data);
     }
 
+    public function search(Request $request)
+    {
+        $data = [
+            'category_name' => 'posts',
+            'page_name' => 'analytics',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        $cari = $request->cari;
+        $searchDatas = ItemList::where('nama', 'like', "%".$cari."%")->paginate(6);
+        // dd($cari);
+        return view('posts.indexSearch', ['posts' => $searchDatas])->with($data);
+    }
+
     public function filter(Request $request)
     {
         $filterLokasi = $request->lokasi;
