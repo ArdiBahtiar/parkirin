@@ -213,27 +213,31 @@
               <h5 class="modal-title" id="filterModalLabel">Filter</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">X</button>
             </div>
-        <form action="">
-            <div class="modal-body">
-                <div class="form-group mb-4">
-                    <input type="text" class="form-control" id="lFullName" placeholder="Full Name *">
+            <form action="{{ url('/posts/filter') }}">
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="minimum Price" name="minHarga">
+                        </div>
+                        <div class="col">
+                            <input type="number" class="form-control" placeholder="maximum Price" name="maxHarga">
+                        </div>
+                    </div>
+                    <select class="form-control mb-4" name="ukuran">
+                        <option>kecil</option>
+                        <option>sedang</option>
+                        <option>besar</option>
+                    </select>
+                    {{-- <small id="emailHelp" class="form-text text-muted">*Required Fields</small> --}}
                 </div>
-                <div class="form-group mb-4">
-                    <input type="email" class="form-control" id="lEmail" placeholder="Email address *">
+                <div class="modal-footer">
+                    {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button> --}}
+                    {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button> --}}
+                    <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" id="lPassword" placeholder="Password *">
-                </div>
-                <small id="emailHelp" class="form-text text-muted">*Required Fields</small>
-            </div>
-            <div class="modal-footer">
-                {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button> --}}
-                {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button> --}}
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </form>
+            </form>
           </div>
         </div>
-      </div>
+    </div>
 
 @endif

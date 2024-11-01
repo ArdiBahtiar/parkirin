@@ -43,14 +43,34 @@ class ItemListController extends Controller
 
     public function filter(Request $request)
     {
-        $filterLokasi = $request->lokasi;
-        $filterHarga = $request->harga;
-        $filterTipe = $request->tipe_lahan;
-        $filterUkuran = $request->ukuran_mobil;
+        $data = [
+            'category_name' => 'posts',
+            'page_name' => 'analytics',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        $filterMinHarga = $request->input('minHarga');
+        $filterMaxHarga = $request->input('maxHarga');
+        $filterUkuran = $request->input('ukuran');
+
+        $query = ItemList::query();
+
+        if ($filterMinHarga) {
+            $query->where('harga', '>=', $filterMinHarga);
+        }
         
-        // $filterHarga = ItemList::all()->sortBy([
-        //     ['harga', 'desc'],
-        // ]);
+        if ($filterMaxHarga) {
+            $query->where('harga', '<=', $filterMaxHarga);
+        }
+
+        if ($filterUkuran) {
+            $query->where('ukuran', $filterUkuran);
+        }
+
+        $posts = $query->paginate(6);
+
+        return view('posts.indexFilter', compact('posts'))->with($data);
     }
 
 
