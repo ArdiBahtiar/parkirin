@@ -168,6 +168,12 @@
                                                             <button type="submit">Chat Penjual</button>
                                                         </form>
                                                     </li>
+                                                    <li class="list-inline-item">
+                                                        <form action="{{ url('/posts/items/' . $list->id . '/edit') }}" method="GET">
+                                                            @csrf
+                                                            <button type="submit">Edit Post</button>
+                                                        </form>
+                                                    </li>
                                                 </ul>
                                             </li>
                                         </ul>

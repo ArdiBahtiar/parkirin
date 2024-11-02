@@ -144,7 +144,9 @@ class ItemListController extends Controller
         ];
 
         $item = ItemList::find($id);
-        return view('posts.editPost', compact('item'))->with($data);
+        $productImages = Image::where('id_post', $id)->get();
+        // $productImages = Image::where('id_post', $id)->first();
+        return view('posts.editPost', compact('item', 'productImages'))->with($data);
     }
 
 
