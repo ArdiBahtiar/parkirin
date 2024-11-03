@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\Bookmark;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Yajra\DataTables\DataTables;
 
@@ -152,13 +154,6 @@ class ItemListController extends Controller
 
     public function update(Request $request, ItemList $itemList, $id)
     {
-        $data = [
-            'category_name' => 'posts',
-            'page_name' => 'createPost',    // ini udah tak bikin custom style dan script nya
-            'has_scrollspy' => 0,
-            'scrollspy_offset' => '',
-        ];
-
         $itemList = ItemList::findOrFail($id);
 
         $validated = $request->validate([
@@ -167,18 +162,55 @@ class ItemListController extends Controller
             'detail_info' => 'required|string',
             'ukuran' => 'required|string',
             'deskripsi' => 'required|string',
-            'lokasi' => 'required|url',
+            'lokasi' => 'required|string',
             'id_owner' => 'required|integer',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $fileName = time().'_'.$image->getClientOriginalName();
+                $filePath = $image->storeAs('uploads', $fileName, 'public');
+
+                Image::create([
+                    'file_path' => '/storage/uploads/' . $fileName,
+                    'id_owner' => $itemList->id_owner,
+                    'id_post' => $itemList->id
+                ]);
+            }
+        }
         
+        $data = [
+            'category_name' => 'posts',
+            'page_name' => 'createPost',    // ini udah tak bikin custom style dan script nya
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
         // $itemList->update($request->all());
         $itemList->update($validated);
-        return redirect('/posts/items/create')->with($data);
+        return redirect('/posts/items/')->with($data);
     }
 
 
-    public function destroy(ItemList $itemList)
+    public function destroy(int $id)
     {
-        //
+        $image = Image::findOrfail($id);
+        $filePath = str_replace('/storage', '', $image->file_path);
+
+        if(Storage::disk('public')->exists($filePath))
+        {
+            Storage::disk('public')->delete($filePath);
+        }
+        $image->delete();
+
+        $data = [
+            'category_name' => 'posts',
+            'page_name' => 'createPost',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        return redirect()->back()->with($data);
     }
 }

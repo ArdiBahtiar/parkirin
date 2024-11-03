@@ -12,11 +12,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form id="createPost" action="{{ url('/posts/items/' . $item->id . '/update') }}" method="POST" role="form">
+                                <form id="editPost" action="{{ url('/posts/items/' . $item->id . '/update') }}" method="POST" role="form">
                                     {{ csrf_field() }}
                                     {{ method_field('put') }}
                                 <div class="widget-content widget-content-area">
-                                    <div id="circle-basic">
+                                    <div id="edit-circle">
                                         <h3>Keyboard</h3>
                                         <section>
                                             <div id="flHorizontalForm" class="col-lg-12 layout-spacing">
@@ -97,13 +97,17 @@
                                                             <div class="custom-file-container" data-upload-id="mySecondImage">
                                                                 <label>Upload (Allow Multiple) <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">x</a></label>
                                                                 <label class="custom-file-container__custom-file" >
-                                                                    <input type="file" class="custom-file-container__custom-file__custom-file-input" multiple>
+                                                                    <input type="file" name="images[]" class="custom-file-container__custom-file__custom-file-input" multiple>
                                                                     <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                                                    <input type="hidden" name="id_owner" value="{{ Auth::user()->id }}">
                                                                     <span class="custom-file-container__custom-file__custom-file-control"></span>
                                                                 </label>
                                                                 <div class="custom-file-container__image-preview"></div>
                                                                 @foreach ($productImages as $image)
-                                                                    <img src="{{ asset($image->file_path) }}" style="width: 100px; height: 75px" alt="Image" />
+                                                                    <div class="image-container position-relative d-inline-block p-2" style="width: 150px; height: 120px;">
+                                                                        <img src="{{ asset($image->file_path) }}" class="border p-2 w-100 h-100" alt="Image">
+                                                                        <a href="{{ url('/posts/items/' . $image->id . '/delete') }}" class="btn btn-danger btn-sm position-absolute top-0 end-0 p-1" style="border-radius: 50%;">X</a>
+                                                                    </div>
                                                                 @endforeach
                                                             </div>
                                                         </div>

@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
         Route::get('/items/{id}/edit', [ItemListController::class, 'edit']);
         Route::put('/items/{id}/update', [ItemListController::class, 'update']);
+        Route::get('/items/{id}/delete', [ItemListController::class, 'destroy']);
     });
 
     Route::prefix('chats')->group(function () {
