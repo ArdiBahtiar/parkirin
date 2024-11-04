@@ -14,20 +14,16 @@
                             <div class="widget-content widget-content-area">
                                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m"></li>
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                        @foreach ($images as $index => $image)
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"></li>
+                                        @endforeach
                                     </ol>
                                     <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <img class="d-block w-100" src="http://localhost:8000/storage/img/600x300.jpg" alt="First slide">
+                                        @foreach ($images as $index => $image)
+                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                            <img class="d-block w-100" src="{{ asset($image->file_path) }}" alt="Slide {{ $index + 1 }}" style="width: 500px; height: 300px">
                                         </div>
-                                        <div class="carousel-item">
-                                            <img class="d-block w-100" src="http://localhost:8000/storage/img/600x300.jpg" alt="Second slide">
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img class="d-block w-100" src="http://localhost:8000/storage/img/600x300.jpg" alt="Third slide">
-                                        </div>
+                                        @endforeach
                                     </div>
                                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -149,30 +145,33 @@
                                             </li>
                                             <li class="contacts-block__item mt-2">
                                                 <ul class="list-inline">
-                                                    <li class="list-inline-item">
+                                                    <li class="list-inline-item p-2">
                                                         <form action="{{ route('bookmarks.save', $list) }}" method="POST">
                                                             @csrf
-                                                            <button type="submit">Bookmark</button>
+                                                            <button type="submit" class="btn">Bookmark</button>
                                                         </form>
                                                     </li>
-                                                    <li class="list-inline-item">
+                                                    <li class="list-inline-item p-2">
                                                         <form action="{{ route('bookmarks.destroy', $list) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit">Remove Bookmark</button>
+                                                            <button type="submit" class="btn">Remove Bookmark</button>
                                                         </form>
                                                     </li>
-                                                    <li class="list-inline-item">
+                                                    <li class="list-inline-item p-2">
                                                         <form action="{{ route('chat.initiate', $list->id) }}" method="GET">
                                                             @csrf
-                                                            <button type="submit">Chat Penjual</button>
+                                                            <button type="submit" class="btn">Chat Penjual</button>
                                                         </form>
                                                     </li>
-                                                    <li class="list-inline-item">
+                                                    <li class="list-inline-item p-2">
                                                         <form action="{{ url('/posts/items/' . $list->id . '/edit') }}" method="GET">
                                                             @csrf
-                                                            <button type="submit">Edit Post</button>
+                                                            <button type="submit" class="btn">Edit Post</button>
                                                         </form>
+                                                    </li>
+                                                    <li class="list-inline-item p-2">
+                                                        <button id="shareButton" class="btn">Share This Post</button>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -268,5 +267,26 @@
                     </div>
                 </div>
             </div>
-            
+
+<script>
+document.getElementById('shareButton').addEventListener('click', function () {
+    const shareData = {
+        title: '{{ $list->nama }}', // Assuming 'nama' is the title or name of the post
+        text: 'Check out this post!',
+        url: '{{ request()->url() }}'
+    };
+
+    if (navigator.share) {
+        // Use the Web Share API for mobile devices and supported browsers
+        navigator.share(shareData)
+            .then(() => console.log('Post shared successfully'))
+            .catch(error => console.error('Error sharing post:', error));
+    } else {
+        // Fallback for browsers that don't support the Web Share API
+        const shareUrl = '{{ request()->url() }}';
+        prompt('Copy this link to share:', shareUrl);
+    }
+});    
+</script>            
+
 @endsection

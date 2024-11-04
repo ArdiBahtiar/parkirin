@@ -132,7 +132,8 @@ class ItemListController extends Controller
 
         $list = ItemList::find($id);
         $user = User::where('id', '=', $list->id_owner)->first();
-        return view('posts.focus', ['list' => $list, 'user' => $user])->with($data);
+        $images = Image::where('id_post', $id)->get();
+        return view('posts.focus', ['list' => $list, 'user' => $user,'images' => $images])->with($data);
     }
 
 

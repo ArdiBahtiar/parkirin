@@ -1345,7 +1345,8 @@ Route::group(['middleware' => 'auth'] , function() {
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index');
+// Route::get('/', 'HomeController@index');
+Route::get('/', [ItemListController::class, 'index']);
 
 Route::get('/register', function() {
     return redirect('/login');    
@@ -1354,6 +1355,6 @@ Route::get('/password/reset', function() {
     return redirect('/login');    
 });
 
-Route::get('/', function() {
-    return redirect('/sales');    
-});
+// Route::get('/', function() {
+//     return redirect('/sales');    
+// });
