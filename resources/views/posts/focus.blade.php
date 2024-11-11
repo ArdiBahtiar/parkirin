@@ -146,30 +146,26 @@
                                             <li class="contacts-block__item mt-2">
                                                 <ul class="list-inline">
                                                     <li class="list-inline-item p-2">
-                                                        <form action="{{ route('bookmarks.save', $list) }}" method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="btn">Bookmark</button>
-                                                        </form>
+                                                        <button id="bookmark-button" class="btn" data-item-id="{{ $item->id }}">
+                                                            {{ $isBookmarked ? 'Remove Bookmark' : 'Bookmark' }}
+                                                        </button>
                                                     </li>
-                                                    <li class="list-inline-item p-2">
-                                                        <form action="{{ route('bookmarks.destroy', $list) }}" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn">Remove Bookmark</button>
-                                                        </form>
-                                                    </li>
+                                                    @if(auth()->user()->id !== $item->id_owner)
                                                     <li class="list-inline-item p-2">
                                                         <form action="{{ route('chat.initiate', $list->id) }}" method="GET">
                                                             @csrf
                                                             <button type="submit" class="btn">Chat Penjual</button>
                                                         </form>
                                                     </li>
+                                                    @endif
+                                                    @if(auth()->user()->id === $item->id_owner || auth()->user()->hasAnyRole(['Admin', 'Manager']))
                                                     <li class="list-inline-item p-2">
                                                         <form action="{{ url('/posts/items/' . $list->id . '/edit') }}" method="GET">
                                                             @csrf
                                                             <button type="submit" class="btn">Edit Post</button>
                                                         </form>
                                                     </li>
+                                                    @endif
                                                     <li class="list-inline-item p-2">
                                                         <button id="shareButton" class="btn">Share This Post</button>
                                                     </li>
@@ -269,24 +265,53 @@
             </div>
 
 <script>
-document.getElementById('shareButton').addEventListener('click', function () {
-    const shareData = {
-        title: '{{ $list->nama }}', // Assuming 'nama' is the title or name of the post
-        text: 'Check out this post!',
-        url: '{{ request()->url() }}'
-    };
+    document.getElementById('shareButton').addEventListener('click', function () {                  // This is script for Share Link
+        const shareData = {
+            title: '{{ $list->nama }}', // Assuming 'nama' is the title or name of the post
+            text: 'Check out this post!',
+            url: '{{ request()->url() }}'
+        };
 
-    if (navigator.share) {
-        // Use the Web Share API for mobile devices and supported browsers
-        navigator.share(shareData)
-            .then(() => console.log('Post shared successfully'))
-            .catch(error => console.error('Error sharing post:', error));
-    } else {
-        // Fallback for browsers that don't support the Web Share API
-        const shareUrl = '{{ request()->url() }}';
-        prompt('Copy this link to share:', shareUrl);
-    }
-});    
+        if (navigator.share) {
+            // Use the Web Share API for mobile devices and supported browsers
+            navigator.share(shareData)
+                .then(() => console.log('Post shared successfully'))
+                .catch(error => console.error('Error sharing post:', error));
+        } else {
+            // Fallback for browsers that don't support the Web Share API
+            const shareUrl = '{{ request()->url() }}';
+            prompt('Copy this link to share:', shareUrl);
+        }
+    });  
+
+    document.addEventListener('DOMContentLoaded', function () {                                     // This is script for Bookmark button AJAX Toggle
+        const bookmarkButton = document.getElementById('bookmark-button');
+        const itemId = bookmarkButton.getAttribute('data-item-id');
+
+            bookmarkButton.addEventListener('click', function () {
+                const url = bookmarkButton.textContent.trim() === 'Bookmark'
+                    ? `/bookmarks/${itemId}/save`
+                    : `/bookmarks/${itemId}/delete`;
+                const method = bookmarkButton.textContent.trim() === 'Bookmark' ? 'POST' : 'DELETE';
+
+                fetch(url, {
+                    method: method,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Update button text and display a success message
+                    if (data.success) {
+                        bookmarkButton.textContent = data.bookmarked ? 'Remove Bookmark' : 'Bookmark';
+                        document.getElementById('message').textContent = data.message;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+    });
 </script>            
 
 @endsection

@@ -65,7 +65,7 @@ Route::group(['middleware' => 'auth'] , function() {
 
     Route::prefix('bookmarks')->group(function() {
         Route::post('/{list}/save', [BookmarkController::class, 'save'])->name('bookmarks.save');
-        Route::delete('/{list}/bookmark', [BookmarkController::class, 'destroy'])->name('bookmarks.destroy');
+        Route::delete('/{list}/delete', [BookmarkController::class, 'destroy'])->name('bookmarks.destroy');
         Route::get('/items', [BookmarkController::class, 'bookmarked']);
     });
 
@@ -1355,6 +1355,6 @@ Route::get('/password/reset', function() {
     return redirect('/login');    
 });
 
-// Route::get('/', function() {
-//     return redirect('/sales');    
-// });
+Route::get('/', function() {
+    return redirect('/posts/items');    
+});

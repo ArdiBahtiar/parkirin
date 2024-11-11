@@ -20,13 +20,13 @@
                     </form>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search toggle-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 </li>
-                <li>
+                {{-- <li>
                     <div class="text-center">
                         <button type="button" class="btn btn-primary mb-2 mr-2" data-toggle="modal" data-target="#filterModal">
                           Filter
                         </button>
                     </div>
-                </li>
+                </li> --}}
             </ul>
             @endif
 
@@ -206,7 +206,7 @@
     </div>
     <!--  END NAVBAR  -->
 
-    <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -228,16 +228,14 @@
                         <option>sedang</option>
                         <option>besar</option>
                     </select>
-                    {{-- <small id="emailHelp" class="form-text text-muted">*Required Fields</small> --}}
+                    <small id="emailHelp" class="form-text text-muted">*Required Fields</small>
                 </div>
                 <div class="modal-footer">
-                    {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button> --}}
-                    {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button> --}}
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
             </form>
           </div>
         </div>
-    </div>
+    </div> --}}
 
 @endif

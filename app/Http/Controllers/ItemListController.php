@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 
@@ -130,10 +131,15 @@ class ItemListController extends Controller
             'scrollspy_offset' => '',
         ];
 
+
+        $item = ItemList::findOrFail($id);
+        $isBookmarked = Auth::user()->bookmarkedPosts->contains($item->id);
+
+
         $list = ItemList::find($id);
         $user = User::where('id', '=', $list->id_owner)->first();
         $images = Image::where('id_post', $id)->get();
-        return view('posts.focus', ['list' => $list, 'user' => $user,'images' => $images])->with($data);
+        return view('posts.focus', ['list' => $list, 'user' => $user,'images' => $images, 'item' => $item, 'isBookmarked' => $isBookmarked])->with($data);
     }
 
 

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\ItemList;
 use App\Models\Bookmark;
+use Illuminate\Support\Facades\Redirect;
 
 class BookmarkController extends Controller
 {
@@ -17,20 +18,31 @@ class BookmarkController extends Controller
             'item_list_id' => $list->id,
         ]);
 
-        return response()->json(['message' => 'Postingan Tersimpan', 'bookmark' => $bookmark], 201);
+        return response()->json([
+            'success' => true,
+            'bookmarked' => true,
+            'message' => 'Post Bookmarked!',
+        ]);
     }
 
     public function destroy(ItemList $list)
     {
         $bookmark = Bookmark::where('user_id', Auth::id())->where('item_list_id', $list->id)->first();
 
-        if($bookmark)
-        {
+        if ($bookmark) {
             $bookmark->delete();
-            return response()->json(['message' => 'Postingan tidak lagi disimpan'], 200);
+            return response()->json([
+                'success' => true,
+                'bookmarked' => false,
+                'message' => 'Deleted from Bookmark!',
+            ]);
         }
 
-        return response()->json(['message' => 'Ngga ada Bookmark'], 404);
+        return response()->json([
+            'success' => false,
+            'bookmarked' => false,
+            'message' => 'Error: Bookmark not found.',
+        ]);
     }
  
     public function bookmarked()
