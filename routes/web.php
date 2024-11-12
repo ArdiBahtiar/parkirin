@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth'] , function() {
         Route::post('/messages', [MessageController::class, 'store'])->middleware(['auth']);
     });
 
-    Route::get('/users/{id}/profile', [HomeController::class, 'profile'])->middleware('auth');
+    // Route::get('/users/{id}/profile', [HomeController::class, 'profile'])->middleware('auth');
 
     Route::prefix('bookmarks')->group(function() {
         Route::post('/{list}/save', [BookmarkController::class, 'save'])->name('bookmarks.save');
@@ -1312,18 +1312,19 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'account_settings';
             return view('pages.users.user_account_setting')->with($data);
         });
-        Route::get('/profile', function() {
-            // $category_name = '';
-            $data = [
-                'category_name' => 'users',
-                'page_name' => 'profile',
-                'has_scrollspy' => 0,
-                'scrollspy_offset' => '',
+        // Route::get('/profile', function() {
+        //     // $category_name = '';
+        //     $data = [
+        //         'category_name' => 'users',
+        //         'page_name' => 'profile',
+        //         'has_scrollspy' => 0,
+        //         'scrollspy_offset' => '',
 
-            ];
-            // $pageName = 'profile';
-            return view('pages.users.user_profile')->with($data);
-        });
+        //     ];
+        //     // $pageName = 'profile';
+        //     return view('pages.users.user_profile')->with($data);
+        // });
+        Route::get('/{id}/profile', [HomeController::class, 'profile']);
     });
 
     // Widgets

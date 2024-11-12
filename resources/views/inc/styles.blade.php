@@ -865,6 +865,8 @@
     @case('profile')
       {{-- User Profile --}}
       <link href="{{asset('assets/css/users/user-profile.css')}}" rel="stylesheet" type="text/css" />
+      <link href="{{asset('plugins/apex/apexcharts.css')}}" rel="stylesheet" type="text/css">
+      <link href="{{asset('assets/css/dashboard/dash_2.css')}}" rel="stylesheet" type="text/css" />
       @break
 
     @case('widgets')
