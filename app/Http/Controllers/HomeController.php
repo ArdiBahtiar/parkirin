@@ -31,8 +31,15 @@ class HomeController extends Controller
     public function profile($id)
     {
         $users = User::find($id);
-        $posts = ItemList::where('user_id', $users->id)->get();
+        $posts = ItemList::where('id_owner', $users->id)->paginate(6);
 
-        return view('profile.indexProfile', ['users' => $users, 'posts' => $posts]);
+        $data = [
+            'category_name' => 'users',
+            'page_name' => 'profile',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        return view('profiles.userProfile', compact('users', 'posts'))->with($data);
     }
 }

@@ -67,8 +67,13 @@ Route::group(['middleware' => 'auth'] , function() {
     Route::get('/convos/{user_id}', [ChatController::class, 'messages'])->middleware('auth');
     Route::post('/convo/message', [ChatController::class, 'sendMessage'])->middleware('auth');
 
+<<<<<<< HEAD
     Route::get('/users/{id}/profile', [HomeController::class, 'profile'])->middleware('auth');
     
+=======
+    // Route::get('/users/{id}/profile', [HomeController::class, 'profile'])->middleware('auth');
+
+>>>>>>> 6ff8df53e56cff8abe0bf03cd08cede51ad10e83
     Route::prefix('bookmarks')->group(function() {
         Route::post('/{list}/save', [BookmarkController::class, 'save'])->name('bookmarks.save');
         Route::delete('/{list}/delete', [BookmarkController::class, 'destroy'])->name('bookmarks.destroy');
@@ -1318,18 +1323,19 @@ Route::group(['middleware' => 'auth'] , function() {
             // $pageName = 'account_settings';
             return view('pages.users.user_account_setting')->with($data);
         });
-        Route::get('/profile', function() {
-            // $category_name = '';
-            $data = [
-                'category_name' => 'users',
-                'page_name' => 'profile',
-                'has_scrollspy' => 0,
-                'scrollspy_offset' => '',
+        // Route::get('/profile', function() {
+        //     // $category_name = '';
+        //     $data = [
+        //         'category_name' => 'users',
+        //         'page_name' => 'profile',
+        //         'has_scrollspy' => 0,
+        //         'scrollspy_offset' => '',
 
-            ];
-            // $pageName = 'profile';
-            return view('pages.users.user_profile')->with($data);
-        });
+        //     ];
+        //     // $pageName = 'profile';
+        //     return view('pages.users.user_profile')->with($data);
+        // });
+        Route::get('/{id}/profile', [HomeController::class, 'profile']);
     });
 
     // Widgets

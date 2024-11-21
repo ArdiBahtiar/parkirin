@@ -12,7 +12,7 @@ class MessageController extends Controller
     public function chatIndex(Conversation $conversation)
     {
         $data = [
-            'category_name' => 'app',
+            'category_name' => 'apps',
             'page_name' => 'chat',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
@@ -28,7 +28,7 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         $data = [
-            'category_name' => 'app',
+            'category_name' => 'apps',
             'page_name' => 'chat',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
@@ -45,7 +45,7 @@ class MessageController extends Controller
     public function initiate($id)
     {
         $data = [
-            'category_name' => 'app',
+            'category_name' => 'apps',
             'page_name' => 'chat',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
