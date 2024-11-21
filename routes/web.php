@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemListController;
 use App\Http\Controllers\ImageController;
@@ -55,14 +56,19 @@ Route::group(['middleware' => 'auth'] , function() {
         Route::get('/items/{id}/delete', [ItemListController::class, 'destroy']);
     });
 
-    Route::prefix('chats')->group(function () {
-        Route::get('/{id}/initiate', [MessageController::class, 'initiate'])->middleware(['auth'])->name('chat.initiate');
-        Route::get('/{conversation}', [MessageController::class, 'chatIndex'])->middleware(['auth'])->name('chat.show');
-        Route::post('/messages', [MessageController::class, 'store'])->middleware(['auth']);
-    });
+    // Route::prefix('chats')->group(function () {
+    //     Route::get('/{id}/initiate', [MessageController::class, 'initiate'])->middleware(['auth'])->name('chat.initiate');
+    //     Route::get('/{conversation}', [MessageController::class, 'chatIndex'])->middleware(['auth'])->name('chat.show');
+    //     Route::post('/messages', [MessageController::class, 'store'])->middleware(['auth']);
+    // });
+
+    Route::get('/convo', [ChatController::class, 'index'])->middleware('auth');
+    Route::post('/convo/initiate', [ChatController::class, 'initiate'])->middleware('auth');
+    Route::get('/convos/{user_id}', [ChatController::class, 'messages'])->middleware('auth');
+    Route::post('/convo/message', [ChatController::class, 'sendMessage'])->middleware('auth');
 
     Route::get('/users/{id}/profile', [HomeController::class, 'profile'])->middleware('auth');
-
+    
     Route::prefix('bookmarks')->group(function() {
         Route::post('/{list}/save', [BookmarkController::class, 'save'])->name('bookmarks.save');
         Route::delete('/{list}/delete', [BookmarkController::class, 'destroy'])->name('bookmarks.destroy');

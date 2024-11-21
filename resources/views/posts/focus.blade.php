@@ -152,9 +152,10 @@
                                                     </li>
                                                     @if(auth()->user()->id !== $item->id_owner)
                                                     <li class="list-inline-item p-2">
-                                                        <form action="{{ route('chat.initiate', $list->id) }}" method="GET">
+                                                        <form action="{{ url('/convo/initiate') }}" method="POST">
                                                             @csrf
-                                                            <button type="submit" class="btn">Chat Penjual</button>
+                                                            <input type="text" name="initiateMessage" class="inputMessage" placeholder="Type your message...">
+                                                            <button class="chat-penjual-btn btn" data-owner-id="{{ $item->id_owner }}">Chat Penjual</button>
                                                         </form>
                                                     </li>
                                                     @endif
@@ -311,6 +312,33 @@
                 })
                 .catch(error => console.error('Error:', error));
             });
+    });
+    
+    document.querySelectorAll('.chat-penjual-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const receiver_id = this.getAttribute('data-owner-id'); // Get the owner's ID
+            const message = document.querySelector('.inputMessage').value.trim(); // Get the message input
+
+            if (!message) {
+                alert("Please enter a message before sending.");
+                return; // Exit if the message is empty
+            }
+
+            $.ajax({
+                type: "post",
+                url: "/convo/initiate", // Endpoint for sending the message
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'), // Include CSRF token
+                    to: receiver_id,
+                    message: message
+                },
+                success: function (response) {
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error sending message:", error);
+                }
+            });
+        });
     });
 </script>            
 
