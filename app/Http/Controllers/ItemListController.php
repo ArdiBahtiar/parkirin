@@ -6,6 +6,8 @@ use App\Models\ItemList;
 use App\Models\User;
 use App\Models\Bookmark;
 use App\Models\Image;
+use App\Models\Province;
+use App\Models\Regency;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -76,6 +78,19 @@ class ItemListController extends Controller
         return view('posts.indexFilter', compact('posts'))->with($data);
     }
 
+    public function getRegencies(Request $request)
+    {
+        $provinceId = $request->province_id;
+
+        if (!$provinceId)
+        {
+            return response()->json(['message' => 'Apa Provinsinya boy?'], 400);
+        }
+
+        $regencies = Regency::where('province_id', $provinceId)->orderBy('id', 'desc')->get();
+
+        return response()->json($regencies);
+    }
 
     public function create()
     {
@@ -84,6 +99,7 @@ class ItemListController extends Controller
             'page_name' => 'createPost',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
+            // 'provinces' => Province::orderBy('id', 'desc')->get(),
         ];
         // $users = User::find($id); BISA DIAMBIL LANGSUNG PAKE Auth::user()
         return view('posts.createPost')->with($data);

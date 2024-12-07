@@ -18,6 +18,8 @@ class ItemList extends Model
         'ukuran',
         'deskripsi',
         'lokasi',
+        'id_province',
+        'id_regency',
         'id_owner',
     ];
 
@@ -29,5 +31,20 @@ class ItemList extends Model
     public function bookmarkedByUsers()
     {
         return $this->belongsToMany(User::class, 'bookmarks', 'item_list_id', 'user_id');
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'id_owner');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'id_province');
+    }
+
+    public function regency()
+    {
+        return $this->belongsTo(Regency::class, 'id_regency');
     }
 }

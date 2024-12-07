@@ -17,8 +17,10 @@
                                 <img src="{{asset('storage/img/90x90.jpg')}}" alt="avatar">
                             </div>
                             <div class="media-body">
-                                <h6>Dev Summit - New York</h6>
-                                <p class="meta-date-time">Bronx, NY</p>
+                                {{-- <h6>Dev Summit - New York</h6> --}}
+                                <h6>{{ $post->owner->name ?? 'Unknown Owner' }}</h6>
+                                {{-- <p class="meta-date-time">Bronx, NY</p> --}}
+                                <p class="meta-date-time">{{ $post->regency->name }}, {{ $post->province->name }}</p>
                             </div>
                         </div>
                         

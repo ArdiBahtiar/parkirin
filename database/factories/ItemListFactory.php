@@ -22,6 +22,8 @@ class ItemListFactory extends Factory
             'detail_info' => fake()->paragraph(2, true),
             'ukuran' => fake()->randomElement(['kecil', 'sedang', 'besar']),
             'deskripsi' => fake()->sentence(),
+            'id_province' => 35,
+            'id_regency' => fake()->numberBetween(3501, 3529),
             'lokasi' => 'https://www.google.com',
             'id_owner' => fake()->numberBetween(1, 3),
         ];

@@ -19,8 +19,9 @@ return new class extends Migration
             // $table->string('tipe_parkiran')->constrained('Garasi', 'Lahan', 'Parkiran');
             $table->string('ukuran');
             $table->string('deskripsi');
+            $table->foreignId('id_province')->references('id')->on('provinces')->onDelete('cascade');
+            $table->foreignId('id_regency')->references('id')->on('regencies')->onDelete('cascade');
             $table->string('lokasi');
-            // $table->bigInteger('id_owner');
             $table->foreignId('id_owner')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
