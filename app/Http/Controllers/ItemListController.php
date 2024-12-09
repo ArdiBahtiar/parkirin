@@ -99,7 +99,7 @@ class ItemListController extends Controller
             'page_name' => 'createPost',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
-            // 'provinces' => Province::orderBy('id', 'desc')->get(),
+            'provinces' => Province::orderBy('id', 'desc')->get(),
         ];
         // $users = User::find($id); BISA DIAMBIL LANGSUNG PAKE Auth::user()
         return view('posts.createPost')->with($data);
@@ -149,13 +149,15 @@ class ItemListController extends Controller
 
 
         $item = ItemList::findOrFail($id);
+        $lowerItems = ItemList::where('id_regency', $item->id_regency)->inRandomOrder()->take(3)->get();
         $isBookmarked = Auth::user()->bookmarkedPosts->contains($item->id);
-
+        // $province = Province::where('id', $item->id_province)->get();
+        $regency = Regency::where('id', $item->id_regency)->first();
 
         $list = ItemList::find($id);
         $user = User::where('id', '=', $list->id_owner)->first();
         $images = Image::where('id_post', $id)->get();
-        return view('posts.focus', ['list' => $list, 'user' => $user,'images' => $images, 'item' => $item, 'isBookmarked' => $isBookmarked])->with($data);
+        return view('posts.focus', ['list' => $list, 'user' => $user,'images' => $images, 'item' => $item, 'isBookmarked' => $isBookmarked, 'lowerItems' => $lowerItems, 'regency' => $regency])->with($data);
     }
 
 
@@ -169,9 +171,11 @@ class ItemListController extends Controller
         ];
 
         $item = ItemList::find($id);
+        $provinces = Province::orderBy('id', 'desc')->get();
+        $regency = Regency::where('id', $item->id_regency)->first(); 
         $productImages = Image::where('id_post', $id)->get();
         // $productImages = Image::where('id_post', $id)->first();
-        return view('posts.editPost', compact('item', 'productImages'))->with($data);
+        return view('posts.editPost', compact('item', 'productImages', 'regency', 'provinces'))->with($data);
     }
 
 

@@ -40,9 +40,10 @@
                         <div class="bio layout-spacing ">
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Bio</h3>
-                                <p>I'm Web Developer from California. I code and design websites worldwide. Mauris varius tellus vitae tristique sagittis. Sed aliquet, est nec auctor aliquet, orci ex vestibulum ex, non pharetra lacus erat ac nulla.</p>
+                                {{-- <p>I'm Web Developer from California. I code and design websites worldwide. Mauris varius tellus vitae tristique sagittis. Sed aliquet, est nec auctor aliquet, orci ex vestibulum ex, non pharetra lacus erat ac nulla.</p>
 
-                                <p>Sed vulputate, ligula eget mollis auctor, lectus elit feugiat urna, eget euismod turpis lectus sed ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ut velit finibus, scelerisque sapien vitae, pharetra est. Nunc accumsan ligula vehicula scelerisque vulputate.</p>
+                                <p>Sed vulputate, ligula eget mollis auctor, lectus elit feugiat urna, eget euismod turpis lectus sed ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ut velit finibus, scelerisque sapien vitae, pharetra est. Nunc accumsan ligula vehicula scelerisque vulputate.</p> --}}
+                                <p>{{ $list->detail_info }}</p>
 
                                 <div class="bio-skill-box">
 
@@ -54,8 +55,8 @@
                                                 <div>
                                                 </div>
                                                 <div class="">
-                                                    <h5>Sass Applications</h5>
-                                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse eu fugiat nulla pariatur.</p>
+                                                    <h5>Ukuran Tempat</h5>
+                                                    <p>{{ $list->ukuran }}</p>
                                                 </div>
                                             </div>
 
@@ -67,7 +68,7 @@
                                                 <div>
                                                 </div>
                                                 <div class="">
-                                                    <h5>Github Countributer</h5>
+                                                    <h5>Alamat</h5>
                                                     <p>Ut enim ad minim veniam, quis nostrud exercitation aliquip ex ea commodo consequat.</p>
                                                 </div>
                                             </div>
@@ -110,6 +111,45 @@
                     </div>
 
                     <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+
+                        <div class="education layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">{{ $list->nama }}</h3>
+                                <div class="timeline-alter">
+                                    <div class="item-timeline">
+                                        {{-- <div class="t-text">
+                                            <p class="">{{ $list->nama }}</p>
+                                        </div> --}}
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>{{ $list->detail_info }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="item-timeline">
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>{{ $list->deskripsi }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="item-timeline">
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p style="font-weight: bold; font-size: large">Rp. {{ $list->harga }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="item-timeline">
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>{{ $regency->name }}, {{ $regency->province->name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="user-profile layout-spacing">
                             <div class="widget-content widget-content-area">
@@ -180,37 +220,7 @@
                             </div>
                         </div>
 
-                        <div class="education layout-spacing ">
-                            <div class="widget-content widget-content-area">
-                                <h3 class="">Detail Tempat</h3>
-                                <div class="timeline-alter">
-                                    <div class="item-timeline">
-                                        <div class="t-text">
-                                            <p class="">{{ $list->nama }}</p>
-                                        </div>
-                                        <div class="t-dot">
-                                        </div>
-                                        <div class="t-text">
-                                            <p>{{ $list->detail_info }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="item-timeline">
-                                        <div class="t-dot">
-                                        </div>
-                                        <div class="t-text">
-                                            <p>{{ $list->deskripsi }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="item-timeline">
-                                        <div class="t-dot">
-                                        </div>
-                                        <div class="t-text">
-                                            <p>{{ $list->harga }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         {{-- <div class="work-experience layout-spacing ">
                             
@@ -262,6 +272,47 @@
                         </div> --}}
 
                     </div>
+
+                    {{-- <div class="layout-px-spacing">
+                        <div class="row layout-top-spacing"> --}}
+                            @foreach ($lowerItems as $post)
+                                @php
+                                $thumbnail = \App\Models\Image::where('id_post', $post->id)->first();
+                                @endphp
+                
+                            <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing">
+                                <div class="widget widget-card-two">
+                                    <div class="widget-content">
+                  
+                                        <div class="media">
+                                            <div class="w-img">
+                                                <img src="{{asset('storage/img/90x90.jpg')}}" alt="avatar">
+                                            </div>
+                                            <div class="media-body">
+                                                {{-- <h6>Dev Summit - New York</h6> --}}
+                                                <h6>{{ $post->owner->name ?? 'Unknown Owner' }}</h6>
+                                                {{-- <p class="meta-date-time">Bronx, NY</p> --}}
+                                                <p class="meta-date-time">{{ $post->regency->name }}, {{ $post->province->name }}</p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="card-bottom-section">
+                                            <h5 class="card-title">{{ $post->nama }}</h5>
+                                            <img src="{{asset($thumbnail->file_path ?? 'storage/img/90x90.jpg') }}" alt="avatar" style="width: 400px; height: 250px">
+                                            <div class="card-body">
+                                                <p class="card-text">{{ $post->deskripsi }}</p>
+                                                <p class="card-text">{{ $post->harga }} /bulan</p>
+                                                <a href="{{ url('/posts/items/' . $post->id) }}" class="btn btn-primary">Lihat Postingan</a>            
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            @endforeach
+                        {{-- </div>
+                    </div> --}}
                 </div>
             </div>
 

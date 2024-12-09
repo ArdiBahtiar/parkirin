@@ -40,6 +40,11 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // $this->middleware
 
+    Route::post('/get-regencies', [ItemListController::class, 'getRegencies'])->name('get.regencies');
+    Route::get('/test-get-regencies/{provinceId}', function ($provinceId) {
+        return App\Models\Regency::where('province_id', $provinceId)->orderBy('id', 'desc')->get();
+    });
+
     Route::prefix('posts')->group(function () {
         Route::get('/items', [ItemListController::class, 'index']);
         Route::get('/items/create', [ItemListController::class, 'create']);

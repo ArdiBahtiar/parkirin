@@ -60,12 +60,6 @@
                                                                     <input type="text" class="form-control" name="deskripsi" id="tambahan" placeholder="" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row mb-4">
-                                                                <label for="alamat" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Link Gmaps</label>
-                                                                <div class="col-xl-10 col-lg-9 col-sm-10">
-                                                                    <input type="url" class="form-control" name="lokasi" id="alamat" placeholder="" required>
-                                                                </div>
-                                                            </div>
                                                             <input type="hidden" name="id_owner" value="{{ Auth::user()->id }}">
                                                             
                                                         
@@ -73,9 +67,34 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        <h3>Effects</h3>
+                                        <h3>Location</h3>
                                         <section>
-                                            <p>lorem</p>
+                                            <div class="form-group row mb-4">
+                                                <label for="alamat" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Link Gmaps</label>
+                                                <div class="col-xl-10 col-lg-9 col-sm-10">
+                                                    <input type="url" class="form-control" name="lokasi" id="alamat" placeholder="" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row mb-4">
+                                                <label for="provinsi" class="col-xl-2 col-sm-3 col-form-label">Provinsi</label>
+                                                <div class="col-xl-10 col-lg-9 col-sm-10">
+                                                    <select name="id_province" id="province-dropdown" class="form-control" required>
+                                                        <option value="" disabled selected hidden>Pilih Provinsi</option>
+                                                        @foreach ($provinces as $provinsi)
+                                                            <option value="{{ $provinsi->id }}">{{ $provinsi->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row mb-4">
+                                                <label for="kota" class="col-xl-2 col-sm-3 col-form-label">Kota/Kabupaten</label>
+                                                <div class="col-xl-10 col-lg-9 col-sm-10">
+                                                    <select name="id_regency" id="regency-dropdown" class="form-control" required>
+                                                        <option value="" disabled selected hidden>Pilih Kota/Kabupaten</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </section>
                                         <h3>Pager</h3>
                                         <section>
@@ -119,4 +138,40 @@
                         </div>
                     </div>
                 </div>
+
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>   
+                    $(document).on('change', '#province-dropdown', function () {
+                        console.log("Province dropdown changed: ", this.value);
+                        var provinceId = this.value;
+                        // Clear the regency dropdown and show loading text
+                        $("#regency-dropdown").html('<option value="">Loading...</option>');
+
+                        $.ajax({
+                            url: "{{ route('get.regencies') }}",
+                            type: "POST",
+                            data: {
+                                province_id: provinceId,
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            dataType: 'json',
+                            success: function (result) {
+                                if (result.length === 0) {
+                                    $('#regency-dropdown').html('<option value="">No regencies found</option>');
+                                    return;
+                                }
+
+                                $('#regency-dropdown').html('<option value="">-- Select regency --</option>');
+                                $.each(result, function (key, value) {
+                                    $("#regency-dropdown").append('<option value="' + value.id + '">' + value.name + '</option>');
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("AJAX error: ", error);
+                                alert("Failed to fetch regencies. Please try again.");
+                                $('#regency-dropdown').html('<option value="">-- Error loading regencies --</option>');
+                            }
+                        });
+                    });
+                </script>                
 @endsection
