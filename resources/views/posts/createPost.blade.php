@@ -16,14 +16,14 @@
                                     {{ csrf_field() }}
                                 <div class="widget-content widget-content-area">
                                     <div id="circle-basic">
-                                        <h3>Keyboard</h3>
+                                        <h3>Main</h3>
                                         <section>
                                             <div id="flHorizontalForm" class="col-lg-12 layout-spacing">
                                                 <div class="statbox widget box box-shadow">
                                                     <div class="widget-header">                                
                                                         <div class="row">
                                                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                                                <h4>Horizontal form</h4>
+                                                                <h4>Silahkan isi semua data</h4>
                                                             </div>                                                                        
                                                         </div>
                                                     </div>
@@ -72,7 +72,7 @@
                                             <div class="form-group row mb-4">
                                                 <label for="alamat" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Link Gmaps</label>
                                                 <div class="col-xl-10 col-lg-9 col-sm-10">
-                                                    <input type="url" class="form-control" name="lokasi" id="alamat" placeholder="" required>
+                                                    <input type="text" class="form-control" name="lokasi" id="alamat" placeholder="" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-4">
@@ -96,11 +96,15 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        <h3>Pager</h3>
+                                        <h3>Bonus</h3>
                                         <section>
-                                            <p>The next and previous buttons help you to navigate through your content.</p>
+                                                <label for="bonuses">Bonuses:</label><br>
+                                            <input type="checkbox" name="bonus[]" value="Cover"> Cover<br>
+                                            <input type="checkbox" name="bonus[]" value="CCTV"> CCTV<br>
+                                            <input type="checkbox" name="bonus[]" value="Pom Bensin"> Pom Bensin<br>
+                                            <input type="checkbox" name="bonus[]" value="EV Charging"> EV Charging<br>
                                         </section>
-                                        <h3>Mbah</h3>
+                                        <h3>Gambar</h3>
                                         <section>
                                         
                                                 <div class="row layout-top-spacing">

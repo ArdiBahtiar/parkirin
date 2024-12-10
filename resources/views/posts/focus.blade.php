@@ -208,6 +208,13 @@
                                                     </li>
                                                     @endif
                                                     <li class="list-inline-item p-2">
+                                                    <form action="{{ url('/posts/items/' . $item->id . '/delete-item') }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this item and all its images?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                    </li>
+                                                    <li class="list-inline-item p-2">
                                                         <button id="shareButton" class="btn">Share This Post</button>
                                                     </li>
                                                 </ul>

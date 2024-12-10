@@ -111,7 +111,9 @@ class ItemListController extends Controller
         $newPost = ItemList::create($request->all());
         
         $request->validate([
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'bonus' => 'nullable|array',
+            'bonus' => 'string'
         ]);
         
         if ($request->hasFile('images')) {
@@ -239,5 +241,31 @@ class ItemListController extends Controller
         ];
 
         return redirect()->back()->with($data);
+    }
+
+    public function deleteItem($id)
+    {
+        $item = ItemList::findOrFail($id);
+
+        // Find and delete associated images
+        $images = Image::where('id_post', $id)->get();
+        foreach ($images as $image) {
+            if (Storage::exists($image->file_path)) {
+                Storage::delete($image->file_path);
+            }
+            $image->delete();
+        }
+
+        // Delete the item
+        $item->delete();
+
+        // return redirect()->back()->with('success', 'Item and associated images deleted successfully!');
+        $data = [
+            'category_name' => 'posts',
+            'page_name' => 'analytics',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+        return redirect('/posts/items/')->with($data);
     }
 }

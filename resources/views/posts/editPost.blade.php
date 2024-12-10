@@ -73,7 +73,7 @@
                                             <div class="form-group row mb-4">
                                                 <label for="alamat" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Link Gmaps</label>
                                                 <div class="col-xl-10 col-lg-9 col-sm-10">
-                                                    <input type="url" class="form-control" name="lokasi" id="alamat" value="{{ $item->lokasi }}" required>
+                                                    <input type="text" class="form-control" name="lokasi" id="alamat" value="{{ $item->lokasi }}" required>
                                                 </div>
                                             </div>
                                             <div class="form-group row mb-4">
