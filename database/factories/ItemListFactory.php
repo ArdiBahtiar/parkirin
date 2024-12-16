@@ -19,9 +19,9 @@ class ItemListFactory extends Factory
         return [
             'nama' => fake()->sentence(),
             'harga' => fake()->numberBetween(10000, 200000),
-            'detail_info' => fake()->paragraph(2, true),
+            // 'detail_info' => fake()->paragraph(2, true),
             'ukuran' => fake()->randomElement(['kecil', 'sedang', 'besar']),
-            'deskripsi' => fake()->sentence(),
+            'deskripsi' => fake()->paragraph(2, true),
             'id_province' => 35,
             'id_regency' => fake()->numberBetween(3501, 3529),
             'lokasi' => 'https://www.google.com',

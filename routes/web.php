@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
@@ -33,6 +34,18 @@ Route::prefix('auth')->group(function () {
         ];
         // $pageName = 'auth_default';
         return view('pages.authentication.auth_register')->with($data);
+    });
+    Route::post('/registry', [RegisterController::class, 'create']);
+    Route::get('/pass_recovery', function() {
+        // $category_name = 'auth';
+        $data = [
+            'category_name' => 'auth',
+            'page_name' => 'auth_default',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+        // $pageName = 'auth_default';
+        return view('pages.authentication.auth_pass_recovery')->with($data);
     });
 });
 
@@ -1358,14 +1371,15 @@ Route::group(['middleware' => 'auth'] , function() {
 Auth::routes();
 
 // Route::get('/', 'HomeController@index');
-Route::get('/', [ItemListController::class, 'index']);
+// Route::get('/', [ItemListController::class, 'index']);
 
 Route::get('/register', function() {
-    return redirect('/login');    
+    return redirect('/auth/register');    
 });
-Route::get('/password/reset', function() {
-    return redirect('/login');    
-});
+
+// Route::get('/password/reset', function() {
+//     return redirect('/login');    
+// });
 
 Route::get('/', function() {
     return redirect('/posts/items');    

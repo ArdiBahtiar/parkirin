@@ -21,6 +21,11 @@ class ItemList extends Model
         'id_province',
         'id_regency',
         'id_owner',
+        'bonus'
+    ];
+
+    protected $casts = [
+        'bonus' => 'array',
     ];
 
     public function bookmarks()

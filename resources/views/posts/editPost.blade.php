@@ -12,7 +12,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form id="editPost" action="{{ url('/posts/items/' . $item->id . '/update') }}" method="POST" role="form">
+                                <form id="editPost" action="{{ url('/posts/items/' . $item->id . '/update') }}" method="POST" role="form" enctype="multipart/form-data">
                                     {{ csrf_field() }}
                                     {{ method_field('put') }}
                                 <div class="widget-content widget-content-area">
@@ -42,12 +42,12 @@
                                                                     <input type="number" class="form-control" name="harga" id="harga" value="{{ $item->harga }}" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row mb-4">
+                                                            {{-- <div class="form-group row mb-4">
                                                                 <label for="detail" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Detail Info</label>
                                                                 <div class="col-xl-10 col-lg-9 col-sm-10">
                                                                     <input type="text" class="form-control" name="detail_info" id="detail" value="{{ $item->detail_info }}" required>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                             <div class="form-group row mb-4">
                                                                 <label for="ukuran" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Ukuran mbah</label>
                                                                 <div class="col-xl-10 col-lg-9 col-sm-10">
@@ -97,11 +97,19 @@
                                                 </div>
                                             </div>
                                         </section>
-                                        <h3>Pager</h3>
+                                        <h3>Bonus</h3>
                                         <section>
-                                            <p>The next and previous buttons help you to navigate through your content.</p>
+                                            <label for="bonuses">Bonuses:</label><br>
+                                            <input type="checkbox" name="bonus[]" value="Cover" 
+                                                {{ in_array('Cover', $item->bonus ?? []) ? 'checked' : '' }}> Cover<br>
+                                            <input type="checkbox" name="bonus[]" value="CCTV" 
+                                                {{ in_array('CCTV', $item->bonus ?? []) ? 'checked' : '' }}> CCTV<br>
+                                            <input type="checkbox" name="bonus[]" value="Pom Bensin" 
+                                                {{ in_array('Pom Bensin', $item->bonus ?? []) ? 'checked' : '' }}> Pom Bensin<br>
+                                            <input type="checkbox" name="bonus[]" value="EV Charging" 
+                                                {{ in_array('EV Charging', $item->bonus ?? []) ? 'checked' : '' }}> EV Charging<br>
                                         </section>
-                                        <h3>Mbah</h3>
+                                        <h3>Gambar</h3>
                                         <section>
                                             <div class="row layout-top-spacing">
                                                 <div id="fuMultipleFile" class="col-lg-12 layout-spacing">

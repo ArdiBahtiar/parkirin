@@ -108,14 +108,18 @@ class ItemListController extends Controller
 
     public function store(Request $request)
     {
-        $newPost = ItemList::create($request->all());
-        
         $request->validate([
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'bonus' => 'nullable|array',
-            'bonus' => 'string'
+            // 'bonus.*' => 'string'
         ]);
-        
+
+        $requestData = $request->all();
+            if ($request->has('bonus')) {
+                $requestData['bonus'] = json_encode($request->input('bonus'));
+            }
+
+        $newPost = ItemList::create($requestData);     
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $fileName = time().'_'.$image->getClientOriginalName();
@@ -173,6 +177,7 @@ class ItemListController extends Controller
         ];
 
         $item = ItemList::find($id);
+        // $item->bonus = json_decode($item->bonus, true);
         $provinces = Province::orderBy('id', 'desc')->get();
         $regency = Regency::where('id', $item->id_regency)->first(); 
         $productImages = Image::where('id_post', $id)->get();
@@ -184,17 +189,22 @@ class ItemListController extends Controller
     public function update(Request $request, ItemList $itemList, $id)
     {
         $itemList = ItemList::findOrFail($id);
+        $itemList->bonus = json_encode($request->input('bonus', []));
 
         $validated = $request->validate([
             'nama' => 'required|string',
             'harga' => 'required|numeric',
-            'detail_info' => 'required|string',
             'ukuran' => 'required|string',
             'deskripsi' => 'required|string',
             'lokasi' => 'required|string',
             'id_owner' => 'required|integer',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'id_province' => 'required|exists:provinces,id',
+            'id_regency' => 'required|exists:regencies,id',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'bonus' => 'nullable|array',
+            'bonus.*' => 'string',
         ]);
+
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -218,9 +228,8 @@ class ItemListController extends Controller
 
         // $itemList->update($request->all());
         $itemList->update($validated);
-        return redirect('/posts/items/')->with($data);
+        return redirect('/posts/items/')->with('success', 'Item updated successfully!')->with($data);
     }
-
 
     public function destroy(int $id)
     {

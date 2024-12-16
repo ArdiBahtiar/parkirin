@@ -14,8 +14,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(5)->create();
+        User::factory(4)->create();
         ItemList::factory(10)->create();
+
+        // Parkirin DEV Migration 101
+        // 1. php artisan migrate
+        // 2. import Wilayah_indonesia
+        // 3. php artisan db:seed
+        // 4. php artisan db:seed SeederAndPermissionsSeeder
+
 
         // User::factory()->create([
         //     'name' => 'Test User',

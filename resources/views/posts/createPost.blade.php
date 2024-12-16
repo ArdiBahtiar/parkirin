@@ -42,12 +42,12 @@
                                                                     <input type="number" class="form-control" name="harga" id="harga" placeholder="" required>
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group row mb-4">
+                                                            {{-- <div class="form-group row mb-4">
                                                                 <label for="detail" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Detail Info</label>
                                                                 <div class="col-xl-10 col-lg-9 col-sm-10">
                                                                     <input type="text" class="form-control" name="detail_info" id="detail" placeholder="" required>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
                                                             <div class="form-group row mb-4">
                                                                 <label for="ukuran" class="col-xl-2 col-sm-3 col-sm-2 col-form-label">Ukuran mbah</label>
                                                                 <div class="col-xl-10 col-lg-9 col-sm-10">

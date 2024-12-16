@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="field-wrapper">
-                                    <a href="authentication/pass_recovery" class="forgot-pass-link">Forgot Password?</a>
+                                    <a href="{{ url('authentication/pass_recovery') }}" class="forgot-pass-link">Forgot Password?</a>
                                 </div>
 
                             </div>
