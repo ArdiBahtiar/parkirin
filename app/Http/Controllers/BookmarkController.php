@@ -55,7 +55,7 @@ class BookmarkController extends Controller
         
         $data = [
             'category_name' => 'posts',
-            'page_name' => 'analytics',
+            'page_name' => 'bookmarks',
             'has_scrollspy' => 0,
             'scrollspy_offset' => '',
         ];

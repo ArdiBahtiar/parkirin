@@ -1324,18 +1324,18 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Users
     Route::prefix('users')->group(function () {
-        Route::get('/account_settings', function() {
-            // $category_name = '';
-            $data = [
-                'category_name' => 'users',
-                'page_name' => 'account_settings',
-                'has_scrollspy' => 0,
-                'scrollspy_offset' => '',
+        // Route::get('/account_settings', function() {
+        //     // $category_name = '';
+        //     $data = [
+        //         'category_name' => 'users',
+        //         'page_name' => 'account_settings',
+        //         'has_scrollspy' => 0,
+        //         'scrollspy_offset' => '',
 
-            ];
-            // $pageName = 'account_settings';
-            return view('pages.users.user_account_setting')->with($data);
-        });
+        //     ];
+        //     return view('pages.users.user_account_setting')->with($data);
+        // });
+        Route::get('/account_settings/{id}', [HomeController::class, 'editProfile']);
         Route::get('/profile', function() {
             // $category_name = '';
             $data = [

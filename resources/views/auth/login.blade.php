@@ -31,7 +31,7 @@
                 <div class="form-container">
                     <div class="form-content">
 
-                        <h1 class="">Log In to <a href="index.html"><span class="brand-name">CORK</span></a></h1>
+                        <h1 class="">Log In to <a href="index.html"><span class="brand-name">PARKIRIN</span></a></h1>
                         <p class="signup-link">New Here? <a href="{{ url('auth/register') }}">Create an account</a></p>
                         <form method="POST" action="{{ route('login') }}" class="text-left">
                             @csrf
@@ -71,9 +71,9 @@
 
                                 <br><br>
 
-                                <div class="field-wrapper">
+                                {{-- <div class="field-wrapper">
                                     <a href="{{ url('auth/pass_recovery') }}" class="forgot-pass-link">Forgot Password?</a>
-                                </div>
+                                </div> --}}
 
                             </div>
                         </form>                        

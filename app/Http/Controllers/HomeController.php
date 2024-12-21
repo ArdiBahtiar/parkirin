@@ -30,8 +30,8 @@ class HomeController extends Controller
 
     public function profile($id)
     {
-        $users = User::find($id);
-        $posts = ItemList::where('id_owner', $users->id)->paginate(6);
+        $user = User::find($id);
+        $posts = ItemList::where('id_owner', $user->id)->paginate(6);
 
         $data = [
             'category_name' => 'users',
@@ -40,6 +40,24 @@ class HomeController extends Controller
             'scrollspy_offset' => '',
         ];
 
-        return view('profiles.userProfile', compact('users', 'posts'))->with($data);
+        return view('profiles.userProfile', compact('user', 'posts'))->with($data);
+    }
+
+    public function editProfile($id)
+    {
+        $user = User::find($id);
+        $data = [
+            'category_name' => 'users',
+            'page_name' => 'account_settings',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+
+        return view('pages.users.user_account_setting',compact('user'))->with($data);
+    }
+
+    public function storeProfile()
+    {
+        // $user
     }
 }

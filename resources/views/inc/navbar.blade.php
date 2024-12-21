@@ -34,7 +34,7 @@
 
             <ul class="navbar-item flex-row nav-dropdowns {{ ($category_name === 'starter_kits') ? 'ml-auto' : '' }}">
                 @if ($category_name != 'starter_kits')
-                <li class="nav-item dropdown language-dropdown more-dropdown">
+                {{-- <li class="nav-item dropdown language-dropdown more-dropdown">
                     <div class="dropdown custom-dropdown-icon">
                         <a class="dropdown-toggle btn" href="#" role="button" id="customDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('storage/img/ca.png')}}" class="flag-width" alt="flag"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
 
@@ -45,7 +45,7 @@
                             <a class="dropdown-item" data-img-value="ca" data-value="en" href="javascript:void(0);"><img src="{{asset('storage/img/ca.png')}}" class="flag-width" alt="flag"> English</a>
                         </div>
                     </div>
-                </li>
+                </li> --}}
 
                 <li class="nav-item dropdown message-dropdown">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="messageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -112,7 +112,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item dropdown notification-dropdown">
+                {{-- <li class="nav-item dropdown notification-dropdown">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg><span class="badge badge-success"></span>
                     </a>
@@ -168,7 +168,7 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> --}}
                 @endif
                 <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="user-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

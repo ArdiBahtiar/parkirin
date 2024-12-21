@@ -40,10 +40,8 @@
                         <div class="bio layout-spacing ">
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Bio</h3>
-                                {{-- <p>I'm Web Developer from California. I code and design websites worldwide. Mauris varius tellus vitae tristique sagittis. Sed aliquet, est nec auctor aliquet, orci ex vestibulum ex, non pharetra lacus erat ac nulla.</p>
-
-                                <p>Sed vulputate, ligula eget mollis auctor, lectus elit feugiat urna, eget euismod turpis lectus sed ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ut velit finibus, scelerisque sapien vitae, pharetra est. Nunc accumsan ligula vehicula scelerisque vulputate.</p> --}}
-                                <p>{{ $list->detail_info }}</p>
+                                {{-- {{-- <p>I'm Web Developer from California. I code and design websites worldwide. Mauris varius tellus vitae tristique sagittis. Sed aliquet, est nec auctor aliquet, orci ex vestibulum ex, non pharetra lacus erat ac nulla.</p> --}}
+                                <p>Sed vulputate, ligula eget mollis auctor, lectus elit feugiat urna, eget euismod turpis lectus sed ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ut velit finibus, scelerisque sapien vitae, pharetra est. Nunc accumsan ligula vehicula scelerisque vulputate.</p>
 
                                 <div class="bio-skill-box">
 
@@ -69,20 +67,31 @@
                                                 </div>
                                                 <div class="">
                                                     <h5>Alamat</h5>
-                                                    <p>Ut enim ad minim veniam, quis nostrud exercitation aliquip ex ea commodo consequat.</p>
+                                                    <p>{{ $list->lokasi }}</p>
                                                 </div>
                                             </div>
 
                                         </div>
 
                                         <div class="col-12 col-xl-6 col-lg-12 mb-xl-0 mb-5 ">
-                                            
+
                                             <div class="d-flex b-skills">
+                                                <div></div>
                                                 <div>
-                                                </div>
-                                                <div class="">
-                                                    <h5>Photograhpy</h5>
-                                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia anim id est laborum.</p>
+                                                    <h5>Bonus</h5>
+                                                    @php
+                                                        $bonuses = is_array($item->bonus) ? $item->bonus : json_decode($item->bonus, true);
+                                                    @endphp
+                                            
+                                                    @if (!empty($bonuses))
+                                                        <ul>
+                                                            @foreach ($bonuses as $bonus)
+                                                                <li>{{ $bonus }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <p>No bonus available.</p>
+                                                    @endif
                                                 </div>
                                             </div>
 
@@ -90,14 +99,14 @@
 
                                         <div class="col-12 col-xl-6 col-lg-12 mb-xl-0 mb-0 ">
                                             
-                                            <div class="d-flex b-skills">
+                                            {{-- <div class="d-flex b-skills">
                                                 <div>
                                                 </div>
                                                 <div class="">
                                                     <h5>Mobile Apps</h5>
                                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do et dolore magna aliqua.</p>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                         </div>
 
@@ -160,7 +169,7 @@
                                 </div>
                                 <div class="text-center user-info">
                                     <img src="{{asset('storage/img/90x90.jpg')}}" alt="avatar" style="height: 300px; width: 300px">
-                                    <p class="">{{ $user->name }}</p>
+                                    {{-- <p class="">{{ $user->name }}</p> --}}
                                 </div>
 
                                     
@@ -169,21 +178,21 @@
                                     <div class="">
                                         <ul class="contacts-block list-unstyled">
                                             <li class="contacts-block__item">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg> Web Developer
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg> {{ $user->name }}
                                             </li>
-                                            <li class="contacts-block__item">
+                                            {{-- <li class="contacts-block__item">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Jan 20, 1989
-                                            </li>
-                                            <li class="contacts-block__item">
+                                            </li> --}}
+                                            {{-- <li class="contacts-block__item">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>New York, USA
-                                            </li>
+                                            </li> --}}
                                             <li class="contacts-block__item">
                                                 <a href="mailto:example@mail.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>{{ $user->email }}</a>
                                             </li>
                                             <li class="contacts-block__item">
                                                 {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> +62 {{ $user->phone }} --}}
                                                 
-                                                <a href="https://wa.me/+62{{ $user->phone }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>+62 {{ $user->phone }}</a>
+                                                <a href="https://wa.me/+62{{ $user->phone }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+62 {{ $user->phone }}</a>
                                             </li>
                                             <li class="contacts-block__item mt-2">
                                                 <ul class="list-inline">
@@ -351,8 +360,8 @@
 
             bookmarkButton.addEventListener('click', function () {
                 const url = bookmarkButton.textContent.trim() === 'Bookmark'
-                    ? `/bookmarks/${itemId}/save`
-                    : `/bookmarks/${itemId}/delete`;
+                    ? /bookmarks/${itemId}/save
+                    : /bookmarks/${itemId}/delete;
                 const method = bookmarkButton.textContent.trim() === 'Bookmark' ? 'POST' : 'DELETE';
 
                 fetch(url, {
