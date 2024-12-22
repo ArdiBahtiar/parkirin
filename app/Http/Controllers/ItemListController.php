@@ -178,6 +178,9 @@ class ItemListController extends Controller
 
         $item = ItemList::find($id);
         // $item->bonus = json_decode($item->bonus, true);
+        if (!is_array($item->bonus)) {
+            $item->bonus = json_decode($item->bonus, true);
+        }
         $provinces = Province::orderBy('id', 'desc')->get();
         $regency = Regency::where('id', $item->id_regency)->first(); 
         $productImages = Image::where('id_post', $id)->get();
