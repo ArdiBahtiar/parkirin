@@ -18,7 +18,7 @@
                                     @endif
                                 </div>
                                 <div class="text-center user-info">
-                                    <img src="{{asset('storage/img/90x90.jpg')}}" alt="avatar" style="width: 150px; height: 150px;">
+                                    <img src="{{asset($user->image_path ?? 'storage/img/90x90.jpg')}}" alt="avatar" style="width: 150px; height: 150px;">
                                     <p class="">{{ $user->name }}</p>
                                 </div>
                                 <div class="user-info-list">

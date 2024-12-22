@@ -76,12 +76,6 @@ Route::group(['middleware' => 'auth'] , function() {
         Route::delete('/items/{id}/delete-item', [ItemListController::class, 'deleteItem'])->name('items.destroy');
     });
 
-    // Route::prefix('chats')->group(function () {
-    //     Route::get('/{id}/initiate', [MessageController::class, 'initiate'])->middleware(['auth'])->name('chat.initiate');
-    //     Route::get('/{conversation}', [MessageController::class, 'chatIndex'])->middleware(['auth'])->name('chat.show');
-    //     Route::post('/messages', [MessageController::class, 'store'])->middleware(['auth']);
-    // });
-
     Route::get('/convo', [ChatController::class, 'index'])->middleware('auth');
     Route::post('/convo/initiate', [ChatController::class, 'initiate'])->middleware('auth');
     Route::get('/convos/{user_id}', [ChatController::class, 'messages'])->middleware('auth');
@@ -1324,17 +1318,6 @@ Route::group(['middleware' => 'auth'] , function() {
 
     // Users
     Route::prefix('users')->group(function () {
-        // Route::get('/account_settings', function() {
-        //     // $category_name = '';
-        //     $data = [
-        //         'category_name' => 'users',
-        //         'page_name' => 'account_settings',
-        //         'has_scrollspy' => 0,
-        //         'scrollspy_offset' => '',
-
-        //     ];
-        //     return view('pages.users.user_account_setting')->with($data);
-        // });
         Route::get('/account_settings/{id}', [HomeController::class, 'editProfile']);
         Route::get('/profile', function() {
             // $category_name = '';
@@ -1345,9 +1328,9 @@ Route::group(['middleware' => 'auth'] , function() {
                 'scrollspy_offset' => '',
 
             ];
-            // $pageName = 'profile';
             return view('pages.users.user_profile')->with($data);
         });
+        Route::put('/update/{id}', [HomeController::class, 'updateProfile']);
         Route::get('/{id}/profile', [HomeController::class, 'profile']);
     });
 
