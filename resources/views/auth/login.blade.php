@@ -57,7 +57,7 @@
                                     <div class="field-wrapper">
                                         <button type="submit" class="btn btn-primary" value="">Log In</button>
                                     </div>
-                                    
+
                                 </div>
 
                                 {{-- <div class="field-wrapper text-center keep-logged-in">
@@ -76,7 +76,10 @@
                                 </div> --}}
 
                             </div>
-                        </form>                        
+                        </form>
+                        <div class="field-wrapper mt-3">
+                            <a href="{{ url('/auth/google-login') }}"  class="btn btn-danger" value="">Log In with Google</a>
+                        </div>                        
                         <p class="terms-conditions">© 2019 All Rights Reserved. <a href="index.html">CORK</a> is a product of Designreset. <a href="javascript:void(0);">Cookie Preferences</a>, <a href="javascript:void(0);">Privacy</a>, and <a href="javascript:void(0);">Terms</a>.</p>
 
                     </div>                    

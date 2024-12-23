@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemListController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +48,8 @@ Route::prefix('auth')->group(function () {
         // $pageName = 'auth_default';
         return view('pages.authentication.auth_pass_recovery')->with($data);
     });
+    Route::get('/google-login', [SocialiteController::class, 'googleLogin']);
+    Route::get('/google-callback', [SocialiteController::class, 'googleAuthentication']);
 });
 
 Route::group(['middleware' => 'auth'] , function() {
