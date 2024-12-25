@@ -71,9 +71,9 @@
 
                                 <br><br>
 
-                                {{-- <div class="field-wrapper">
-                                    <a href="{{ url('auth/pass_recovery') }}" class="forgot-pass-link">Forgot Password?</a>
-                                </div> --}}
+                                <div class="field-wrapper">
+                                    <a href="{{ route('password.request') }}" class="forgot-pass-link">Forgot Password?</a>
+                                </div>
 
                             </div>
                         </form>

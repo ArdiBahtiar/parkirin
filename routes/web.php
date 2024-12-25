@@ -8,6 +8,8 @@ use App\Http\Controllers\ItemListController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,17 +39,6 @@ Route::prefix('auth')->group(function () {
         return view('pages.authentication.auth_register')->with($data);
     });
     Route::post('/registry', [RegisterController::class, 'create']);
-    Route::get('/pass_recovery', function() {
-        // $category_name = 'auth';
-        $data = [
-            'category_name' => 'auth',
-            'page_name' => 'auth_default',
-            'has_scrollspy' => 0,
-            'scrollspy_offset' => '',
-        ];
-        // $pageName = 'auth_default';
-        return view('pages.authentication.auth_pass_recovery')->with($data);
-    });
     Route::get('/google-login', [SocialiteController::class, 'googleLogin']);
     Route::get('/google-callback', [SocialiteController::class, 'googleAuthentication']);
 });
@@ -1363,10 +1354,19 @@ Route::get('/register', function() {
     return redirect('/auth/register');    
 });
 
-// Route::get('/password/reset', function() {
-//     return redirect('/login');    
-// });
-
 Route::get('/', function() {
     return redirect('/posts/items');    
+});
+
+Route::middleware('guest')->group(function () {
+    Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+    
+    // Handle the submission of the password reset request form
+    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+    
+    // Display the form to reset the password
+    Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    
+    // Handle the submission of the password reset form
+    Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 });

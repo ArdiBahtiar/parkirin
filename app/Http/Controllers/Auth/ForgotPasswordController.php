@@ -19,4 +19,16 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+    public function showLinkRequestForm()
+    {
+        $data = [
+            'category_name' => 'auth',
+            'page_name' => 'auth_default',
+            'has_scrollspy' => 0,
+            'scrollspy_offset' => '',
+        ];
+        return view('pages.authentication.auth_pass_recovery')->with($data);
+        // return view('auth.passwords.email')->with($data);
+    }
 }
